@@ -18,14 +18,15 @@ function fetchVideos() {
   allVideosTitles.forEach((el) => {
     let videoTitle = el.innerText.toLowerCase();
     for (let word of blockedWords) {
-      if (videoTitle.search(word) > -1) {
-        let parentEl = el.closest("ytd-rich-item-renderer");
-        if (parentEl.classList.contains("ytb-blocked")) {
-          continue;
-        }
-        blockVideo(parentEl);
-        break;
+      if (videoTitle.search(word) === -1) {
+        continue;
       }
+      let parentEl = el.closest("ytd-rich-item-renderer");
+      if (parentEl.classList.contains("ytb-blocked")) {
+        continue;
+      }
+      blockVideo(parentEl);
+      break;
     }
   });
 }
